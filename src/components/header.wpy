@@ -1,0 +1,164 @@
+<style lang="less">
+  .bg {
+    background:#fff;
+}
+
+.box{
+    margin-top:30rpx;
+    padding-top:30rpx;
+    width: 100%;
+}
+
+.text {
+    padding-top: 30rpx;
+    text-align: center;
+    font-size: 40rpx;
+    box-sizing: border-box;
+}
+.line {
+    margin: 30rpx auto;
+    width: 55rpx;
+    height: 3rpx;
+    background: #999;
+}
+
+.middle {
+    vertical-align: middle;
+}
+
+.left {
+    float:left;
+}
+
+.right {
+    float:right;
+}
+
+.top {
+    margin-top: 30rpx;
+}
+/* 头部开始 */
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    height: 70rpx;
+    align-items: center;
+}
+
+.header-wechat{
+    width: 46rpx;
+    height: 46rpx;
+}
+
+.search{
+    width: 540rpx;
+    height: 50rpx;
+    font-size: 28rpx;
+    border-radius: 10rpx;
+    background: #ececec;
+    display: flex;
+    line-height: 60rpx;
+}
+.search-input {
+    width: 500rpx;
+    height: 50rpx;
+    color: gray;
+}
+.search-icon {
+    margin:0 10rpx;
+}
+
+.tab{
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 28rpx;
+    display: flex;
+    justify-content: space-around;
+}
+
+.tab-list{
+    height: 70rpx;
+    line-height: 70rpx;
+    text-align: center;
+    border-bottom: 3px solid #fff;
+    box-sizing: border-box;
+    margin: 0 25rpx;
+    padding: 0 15rpx;
+}
+
+.tab .tab-list.on{
+    border-color: #f2505d;
+}
+</style>
+<template>
+  <view class="header bg">
+        <view class="header-wechat">
+            <image class="header-wechat" src="/image/index/code.png"></image>
+        </view>
+        <view class="search">
+            <view class="search-icon">
+                <icon type="search" size="16"/>
+            </view>
+            <input class="search-input" confirm-type="search" value="{{inputVal}}" placeholder="达芙荻丽面膜" bindconfirm="handleSearch" bindinput="handleSearchValue"/>
+        </view>
+        <view class="header-wechat">
+            <image class="header-wechat" src="/image/index/message.png"></image>
+        </view>
+    </view>
+    <block wx:if="{{inputVal == ''}}">
+        <view class="tab bg">
+            <scroll-view class="" scroll-x="true" style="width: 100%;white-space: nowrap; display: flex">
+                <view style="display: inline-block" bindtap="switchIndex" class="tab-list {{index === 1 ?'on':''}}">首页</view>
+                <view wx:for="{{tab}}" wx:key="index" data-id="{{item.id}}" data-index="{{index}}"
+                   style="display: inline-block" bindtap="switchTab" class="tab-list {{tabIndex === index?'on':''}}">
+                    {{item.nav_name}}
+                </view>
+            </scroll-view>
+        </view>
+    </block>
+</template>
+<script>
+  import wepy from 'wepy'
+  // import abc from 'abc'
+
+  export default class Header extends wepy.component {
+    props = {
+      num: {
+        type: [Number, String],
+        coerce: function (v) {
+          return +v
+        },
+        default: 50
+      }
+    }
+
+    data = {
+    }
+    events = {
+      'index-broadcast': (...args) => {
+        let $event = args[args.length - 1]
+        console.log(`${this.$name} receive ${$event.name} from ${$event.source.$name}`)
+      }
+    }
+
+    watch = {
+      num (curVal, oldVal) {
+        console.log(`旧值：${oldVal}，新值：${curVal}`)
+      }
+    }
+
+    methods = {
+      plus () {
+        this.num = this.num + 1
+        console.log(this.$name + ' plus tap')
+
+        this.$emit('index-emit', 1, 2, 3)
+      },
+      minus () {
+        this.num = this.num - 1
+        console.log(this.$name + ' minus tap')
+      }
+    }
+  }
+</script>

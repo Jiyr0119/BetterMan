@@ -1,0 +1,8 @@
+@import "./../components/header.wxss";
+@import "./../npm/wepy-com-toast/toast.wxss";
+@import "./../components/group.wxss";
+@import "./../components/list.wxss";
+@import "./../components/counter.wxss";
+@import "./../components/counter.wxss";
+@import "./../components/panel.wxss";
+.container{width:100%;height:100%;position:absolute;top:140rpx;left:0;padding-bottom:50rpx}
